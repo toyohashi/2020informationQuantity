@@ -83,7 +83,7 @@ public class TestCase {
         myObject.setSpace("Write Test Case For Wrong Case".getBytes());
 	    myObject.setTarget(null);
 	    freq = myObject.frequency();
-	    if(0 != freq) {System.out.println("Test 3: frequency() for Write_Test_Case_For_Wrong_Case, should return 0, when taget is \"\". But it returns "+freq); c++; }
+	    if(0 != freq) {System.out.println("Test 3: frequency() for Write_Test_Case_For_Wrong_Case, should return 0, when taget is null. But it returns "+freq); c++; }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred in Frequencer Object");
