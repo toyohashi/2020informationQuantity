@@ -47,7 +47,43 @@ public class TestCase {
 	    if(4 != freq) {System.out.println("frequency() for Hi_Ho_Hi_Ho, should return 4, when taget is H. But it returns "+freq); c++; }
 
 	    // Write your testCase here
+	    /*ブラックボックステスト*/
+	    // TestCase 1
+        myObject.setSpace("Toyohashi University of Technology".getBytes());
+	    myObject.setTarget("T".getBytes());
+	    freq = myObject.frequency();
+	    if(2 != freq) {System.out.println("frequency() for Toyohashi_University_of_Technology, should return 2, when taget is T. But it returns "+freq); c++; }
 
+        // TestCase 2
+        myObject.setSpace("Software 4: Write Test Case".getBytes());
+	    myObject.setTarget("S".getBytes());
+	    freq = myObject.frequency();
+	    if(1 != freq) {System.out.println("frequency() for Software_4:_Write_Test_Case, should return 2, when taget is T. But it returns "+freq); c++; }
+
+        // TestCase 3
+        myObject.setSpace("".getBytes());
+	    myObject.setTarget("S".getBytes());
+	    freq = myObject.frequency();
+	    if(0 != freq) {System.out.println("frequency() for null string, should return 0, when taget is S. But it returns "+freq); c++; }
+
+        /*ホワイトボックステスト*/
+        // TestCase 1
+        myObject.setSpace("Write Test Case For Wrong Case".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    if(0 != freq) {System.out.println("frequency() for Write_Test_Case_For_Wrong_Case, should return 0, when taget is \"\". But it returns "+freq); c++; }
+
+        // TestCase 2:Case Exception occurred in Frequencer Object
+        myObject.setSpace("BBBBBBBBB".getBytes());
+	    myObject.setTarget("BB".getBytes());
+	    freq = myObject.frequency();
+	    if(1 != freq) {System.out.println("frequency() for BBBBBBBBB, should return 0, when taget is BB. But it returns "+freq); c++; }
+
+        // TestCase 3
+        myObject.setSpace("Write Test Case For Wrong Case".getBytes());
+	    myObject.setTarget(null);
+	    freq = myObject.frequency();
+	    if(0 != freq) {System.out.println("Test 3: frequency() for Write_Test_Case_For_Wrong_Case, should return 0, when taget is \"\". But it returns "+freq); c++; }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred in Frequencer Object");
