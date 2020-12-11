@@ -102,15 +102,24 @@ public class TestCase {
 		//Test case 7: duplicate string
 		myObject7 = new Frequencer();
 		myObject7.setSpace("aaaaaaa".getBytes());
-	    myObject7.setTarget("aa".getBytes());
-	    freq7 = myObject7.frequency();
-		if(6 != freq7) {System.out.println("Test case 6: frequency() for aaaaaaa, should return 6, when target is aa. But it returns "+freq7); c++; }
-
+		myObject7.setTarget("aa".getBytes());
+		try{
+	    	freq7 = myObject7.frequency();
+			if(6 != freq7) {System.out.println("Test case 6: frequency() for aaaaaaa, should return 6, when target is aa. But it returns "+freq7); c++; }
+		} catch(Exception e) {
+			System.out.println("Exception occurred in Test 7 : duplicate string");
+			c++;
+		}
 		//Test case 8: targetLength > spaceLength:
 		myObject8 = new Frequencer();
 		myObject8.setSpace("Hi".getBytes());
-	    myObject8.setTarget("Hiho".getBytes());
-	    freq8 = myObject8.frequency();
+		myObject8.setTarget("Hiho".getBytes());
+		try{
+			freq8 = myObject8.frequency();
+		} catch(Exception e) {
+			System.out.println("Exception occurred in Test 8 : targetLength > spaceLength");
+			c++;
+		}
 
 	}
 	catch(Exception e) {
@@ -120,7 +129,7 @@ public class TestCase {
 
 	try {
 	    InformationEstimatorInterface myObject;
-	    double value;
+	    double value,value1,value2,value3;
 	    System.out.println("checking InformationEstimator");
 	    myObject = new InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
@@ -135,7 +144,34 @@ public class TestCase {
 	    if((value < 2.9999) || (3.0001 <value)) { System.out.println("IQ for 0123 in 3210321001230123 should be 3.0. But it returns "+value); c++; }
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
-	    if((value < 3.9999) || (4.0001 <value)) { System.out.println("IQ for 00 in 3210321001230123 should be 4.0. But it returns "+value); c++; }
+		if((value < 3.9999) || (4.0001 <value)) { System.out.println("IQ for 00 in 3210321001230123 should be 4.0. But it returns "+value); c++; }
+		
+		//Test 1: Target's length is 0
+		InformationEstimatorInterface myObject1;
+		myObject1 = new InformationEstimator();
+	    myObject1.setSpace("3210321001230123".getBytes());
+	    myObject1.setTarget("".getBytes());
+		value1 = myObject1.estimation();
+		if((value1 < -0.0001) || (0.0001 <value1)) { System.out.println("Test1: IQ for null in 3210321001230123 should be 0.0. But it returns "+value1); c++; }
+
+		//Test 2: Target is not set
+		InformationEstimatorInterface myObject2;
+		myObject2 = new InformationEstimator();
+	    myObject2.setSpace("3210321001230123".getBytes());
+		value2 = myObject1.estimation();
+		if((value2 < -0.0001) || (0.0001 <value2)) { System.out.println("Test2: IQ when Target is not set should be 0.0. But it returns "+value2); c++; }
+
+		// Test 3: Space is not set
+		InformationEstimatorInterface myObject3;
+		myObject3 = new InformationEstimator();
+		myObject3.setTarget("0".getBytes());
+		try{
+			value3 = myObject3.estimation();
+			if( (value3 < Double.MAX_VALUE-0.0001) || (Double.MAX_VALUE+0.0001 <value3)) { System.out.println("Test3: IQ when space is not set should be Double.Max_value. But it returns "+value3); c++; }
+		} catch(Exception e) {
+			System.out.println("Exception occurred in Test 3: Space is not set");
+			c++;
+		}
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred in InformationEstimator Object");
