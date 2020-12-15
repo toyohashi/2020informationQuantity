@@ -6,10 +6,10 @@ all:
 
 # 利用する場合は s4.学籍番号/プログラム名 になるように書き換える
 run:
-	java -classpath "../.." s4.B181863/Hello
+# 	java -classpath "../.." s4.B181863/Hello
 #	java -classpath "../.." s4.B181863/Frequencer
 #	java -classpath "../.." s4.B181863/InformationEstimator
-#	java -classpath "../.." s4.B181863/TestCase
+	java -classpath "../.." s4.B181863/TestCase
 
 # runやrunHelloなどがファイル名ではなくターゲット名であることをmakeに伝えるための定義
 .PNOHY: run runHello runFrequencer runInformationEstimator runTestCase
