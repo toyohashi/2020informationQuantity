@@ -24,7 +24,8 @@ hs_err_pid*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -503,3 +504,6 @@ flycheck_*.el
 
 # projectiles files
 .projectile
+
+# DS_Store file
+.DS_Store
