@@ -51,7 +51,7 @@ public class Frequencer implements FrequencerInterface{
         }
     }
 
-    private int suffixCompare(int i, int j) {
+    private int suffixCompare(int m, int n) {
         // suffixCompareはソートのための比較メソッドである。
         // 次のように定義せよ。
         //
