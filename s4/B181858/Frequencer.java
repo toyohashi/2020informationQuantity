@@ -70,7 +70,7 @@ public class Frequencer implements FrequencerInterface {
 
         // ここにコードを記述せよ
         //
-
+    
         byte[] suffix_m = new byte[mySpace.length - m];
         for (int i = m; i < mySpace.length; i++) {
             suffix_m[i - m] = mySpace[i];
@@ -467,7 +467,11 @@ public class Frequencer implements FrequencerInterface {
              * 5:Ho 6:Ho Hi Ho 7:i Ho 8:i Ho Hi Ho 9:o 10:o Hi Ho
              */
 
+
             frequencerObject.setTarget("H".getBytes());
+
+            frequencerObject.setTarget("Ho ".getBytes());
+
             //
             // **** Please write code to check subByteStartIndex, and subByteEndIndex
             //
