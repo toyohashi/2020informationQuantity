@@ -76,9 +76,12 @@ public class InformationEstimator implements InformationEstimatorInterface {
     @Override
     public double estimation(){
         double result = Double.MAX_VALUE;
-        if(myTarget.length == 0 || myTarget == null) return 0.0;
-        if(mySpace != null )result = cal_estimation(myTarget.length-1); 
-        return result;
+        //It returns 0.0 when the TARGET is not set or TARGET's length is zero;
+        if(myTarget.length == 0 || myTarget == null) return 0.0; 
+        //It returns Double.MAX_VALUE when the true value is infinite, or SPACE is not set.
+        if(mySpace == null || Double.isInfinite(cal_estimation(myTarget.length-1)))
+            return result ; 
+        return result = cal_estimation(myTarget.length-1);
         // boolean [] partition = new boolean[myTarget.length+1];
         // int np = 1<<(myTarget.length-1);
         // // System.out.println("np="+np+" length="+myTarget.length);
