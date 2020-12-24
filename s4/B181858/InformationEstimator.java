@@ -66,17 +66,18 @@ public class InformationEstimator implements InformationEstimatorInterface {
         else{
           double result = iq(0,n+1);
           for(int i = 0; i<n;i++){
-            if(result > estimate_result[i]+iq(i+1,n+1)) result = estimate_result[i]+iq(i+1,n+1);
+            if(result > cal_estimation(i)+iq(i+1,n+1)) result = cal_estimation(i)+iq(i+1,n+1);
           }
-          return  estimate_result[n] = result;
+           estimate_result[n] = result;
         }
+        return  estimate_result[n];
       }
 
     @Override
     public double estimation(){
-        double result = cal_estimation(myTarget.length-1);
-        if(myTarget.length == 0) return 0.0;
-        if(mySpace.length == 0 || result > Double.MAX_VALUE ) return Double.MAX_VALUE;
+        double result = Double.MAX_VALUE;
+        if(myTarget.length == 0 || myTarget == null) return 0.0;
+        if(mySpace != null )result = cal_estimation(myTarget.length-1); 
         return result;
         // boolean [] partition = new boolean[myTarget.length+1];
         // int np = 1<<(myTarget.length-1);
