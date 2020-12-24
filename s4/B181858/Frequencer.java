@@ -71,72 +71,33 @@ public class Frequencer implements FrequencerInterface {
         // ここにコードを記述せよ
         //
     
-        byte[] suffix_m = new byte[mySpace.length - m];
-        for (int i = m; i < mySpace.length; i++) {
-            suffix_m[i - m] = mySpace[i];
-        }
 
-        byte[] suffix_n = new byte[mySpace.length - n];
-        for (int i = n; i < mySpace.length; i++) {
-            suffix_n[i - n] = mySpace[i];
-        }
-
-        // Rules:
-        // suffix_m < suffix_n: -1
-        // suffix_m > suffix_n: 1
-        // suffix_m = suffix_n: 0
-
+        byte[] suffix_m = subBytes(mySpace,m,mySpace.length);
+        byte[] suffix_n = subBytes(mySpace,n,mySpace.length);
 
         return compareTwoString(suffix_m,suffix_n);
     }
 
-    int compareTwoString(byte[] suffix_m, byte[] suffix_n) {
-        int result = 0;
-        int distance = suffix_m.length - suffix_n.length;
-
-        
-
-        if (distance == 0) { // same length
-            for (int i = 0; i < suffix_m.length; i++) {
-                if (suffix_m[i] > suffix_n[i]) {
-                    result = 1;
-                    return result;
-                }
-                if (suffix_m[i] < suffix_n[i]) {
-
-                    result = -1;
-                    return result;
-                }
-            }
-        } else if (distance > 0) { // a.length > b.length
-            for (int i = 0; i < suffix_n.length; i++) {
-                if (suffix_m[i] > suffix_n[i]) {
-                    result = 1;
-                    return result;
-                }
-                if (suffix_m[i] < suffix_n[i]) {
-                    result = -1;
-                    return result;
-                }
-            }
-            result = 1;
-            return result;
-        } else { // a.length < b.length
-            for (int i = 0; i < suffix_m.length; i++) {
-                if (suffix_m[i] > suffix_n[i]) {
-                    result = 1;
-                    return result;
-                }
-                if (suffix_m[i] < suffix_n[i]) {
-                    result = -1;
-                    return result;
-                }
-            }
-            result = -1;
-            return result;
-        }
-
+    byte[] subBytes(byte[] x, int start, int end) {
+        // corresponding to substring of String for byte[],
+        // It is not implement in class library because internal structure of byte[] requires copy.
+        byte[] result = new byte[end - start];
+        for(int i = 0; i<end - start; i++) { result[i] = x[start + i]; };
         return result;
+    }
+
+    
+
+    int compareTwoString(byte[] a, byte[] b) {
+        int i = 0;
+        while(i < a.length && i < b.length){
+            if(a[i] > b[i]) return 1;
+            if (a[i] < b[i]) return -1;
+            i++;
+        }
+        if(a.length > b.length) return 1;
+        if (a.length < b.length) return -1;
+        return 0;
     }
 
     public void setSpace(byte[] space) {
@@ -311,34 +272,22 @@ public class Frequencer implements FrequencerInterface {
        
       
         int suffix_i_len = mySpace.length - i;
-        byte[] suffix_i = new byte[suffix_i_len];
-        for (int x = i; x < mySpace.length; x++) {
-            suffix_i[x - i] = mySpace[x];
-        }
-
         int target_len = k-j;
-        byte[] target_j_k = new byte[target_len];
-        for (int x = j; x < k; x++) {
-            target_j_k[x-j] = myTarget[x];
-        }
-
+        byte[] suffix_i = subBytes(mySpace,i,mySpace.length);
+        byte[] target_j_k = subBytes(myTarget,j,k);
         if (target_len > suffix_i_len || target_len == suffix_i_len) {
             return compareTwoString(suffix_i, target_j_k);
         } 
         if(target_len < suffix_i_len ) {
             for (int x = 0; x < target_len; x++) {
-                if (suffix_i[x] > target_j_k[x]) {
-                  return 1;
-                } 
-                if (suffix_i[x] < target_j_k[x]) {
-                    return -1;
-                  } 
-             
+                if (suffix_i[x] > target_j_k[x]) return 1;
+                if (suffix_i[x] < target_j_k[x]) return -1; 
             }
         }
         return 0; // この行は変更しなければならない。
     }
 
+    //binary search for the first index
     private  int first_search(int low, int high, int start,int end){
         if (high >= low) {
             int mid = low + (high - low) / 2;
@@ -355,6 +304,7 @@ public class Frequencer implements FrequencerInterface {
         return -1;
     }
 
+    // binary search for the last index
     private  int last_search(int low, int high, int start,int end){
         if (high >= low) {
             int mid = low + (high - low) / 2;
@@ -392,13 +342,6 @@ public class Frequencer implements FrequencerInterface {
         //
         // ここにコードを記述せよ。
         //
-    //    for(int i = 0; i < suffixArray.length; i++){
-    //      if(targetCompare(suffixArray[i],start,end)==0) {
-    //          System.out.println(i);
-    //          return i;
-    //      }
-    //    }
-    //     return -1;
         
         return first_search(0, suffixArray.length-1, start, end);
     }
@@ -423,17 +366,9 @@ public class Frequencer implements FrequencerInterface {
         //
         // ここにコードを記述せよ
         //
-        // for(int i = suffixArray.length-1; i >=0; i--){
-        //  if(targetCompare(suffixArray[i],start,end)==0) {
-        //      System.out.println(i+1);
-        //      return i+1;
-        //  }
-        // }
-        // return -1;
+        
         int result = last_search(0, suffixArray.length-1, start, end);
-        if(result == -1){
-            return result;
-        }
+        if(result == -1) return result;
         return result+1;
     }
 
