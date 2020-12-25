@@ -66,18 +66,22 @@ public class InformationEstimator implements InformationEstimatorInterface {
         else{
           double result = iq(0,n+1);
           for(int i = 0; i<n;i++){
-            if(result > estimate_result[i]+iq(i+1,n+1)) result = estimate_result[i]+iq(i+1,n+1);
+            if(result > cal_estimation(i)+iq(i+1,n+1)) result = cal_estimation(i)+iq(i+1,n+1);
           }
-          return  estimate_result[n] = result;
+           estimate_result[n] = result;
         }
+        return  estimate_result[n];
       }
 
     @Override
     public double estimation(){
-        double result = cal_estimation(myTarget.length-1);
-        if(myTarget.length == 0) return 0.0;
-        if(mySpace.length == 0 || result > Double.MAX_VALUE ) return Double.MAX_VALUE;
-        return result;
+        double result = Double.MAX_VALUE;
+        //It returns 0.0 when the TARGET is not set or TARGET's length is zero;
+        if(myTarget.length == 0 || myTarget == null) return 0.0; 
+        //It returns Double.MAX_VALUE when the true value is infinite, or SPACE is not set.
+        if(mySpace == null || Double.isInfinite(cal_estimation(myTarget.length-1)))
+            return result ; 
+        return result = cal_estimation(myTarget.length-1);
         // boolean [] partition = new boolean[myTarget.length+1];
         // int np = 1<<(myTarget.length-1);
         // // System.out.println("np="+np+" length="+myTarget.length);
