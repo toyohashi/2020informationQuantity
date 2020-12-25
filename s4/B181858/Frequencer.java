@@ -447,7 +447,7 @@ public class Frequencer implements FrequencerInterface {
                 System.out.println("WRONG");
             }
 
-            // Test case 3: mySpaceの文字は、"Hi Ho Hi Ho"
+            // Test case 4: mySpaceの文字は、"Hi Ho Hi Ho"
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
             /*
