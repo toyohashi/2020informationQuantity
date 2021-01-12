@@ -1,14 +1,14 @@
 all:
 	# javac Hello.java -classpath "../.."
 	javac Frequencer.java -classpath "../.."
-	# javac InformationEstimator.java -classpath "../.."
+	javac InformationEstimator.java -classpath "../.."
 	# javac TestCase.java -classpath "../.."
 
 # 利用する場合は s4.学籍番号/プログラム名 になるように書き換える
 run:
 	# java -classpath "../.." s4.B181858/Hello
 	java -classpath "../.." s4.B181858/Frequencer
-	# java -classpath "../.." s4.B181858/InformationEstimator
+	java -classpath "../.." s4.B181858/InformationEstimator
 	# java -classpath "../.." s4.B181858/TestCase
 
 # runやrunHelloなどがファイル名ではなくターゲット名であることをmakeに伝えるための定義
